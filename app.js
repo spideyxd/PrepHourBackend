@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const PORT = process.env.PORT || 8000;
-const BASE_URL=process.env.BASE_URL;
+const BASE_URL=process.env.BASE_URL; 
 
 
   const connectionParams = {
