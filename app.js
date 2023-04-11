@@ -16,13 +16,27 @@ app.use(express.json());
 app.use(cookieParser());
 
 const PORT = process.env.PORT || 8000;
+const BASE_URL=process.env.BASE_URL;
 
-mongoose
-  .connect("mongodb://localhost:27017/MinorProjectDB")
-  .then(() => console.log("connection successfull with MongoDB"))
-  .catch((err) => console.log(err));
 
-app.post("/register", async (req, res) => {
+  const connectionParams = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  };
+  try { 
+    mongoose.connect(
+      process.env.MONGODB  ,
+        connectionParams
+    );
+    console.log("Database connected succesfully",process.env.BASE_URL);
+  } catch (error) {
+    console.log(error);
+    console.log("Database connection failed");
+  }
+
+
+  
+app.post(`${BASE_URL}/register`, async (req, res) => {
   const {
     firstName,
     password,
@@ -68,7 +82,7 @@ app.post("/register", async (req, res) => {
 });
 
 
-app.post("/submitDetails", async (req, res) => {
+app.post(`${BASE_URL}/submitDetails`, async (req, res) => {
   const { email, mode, domain ,purpose} = req.body;
 
   const mentor = await DetailUser.find({
@@ -97,11 +111,11 @@ app.post("/submitDetails", async (req, res) => {
   res.json({ msg: "success" });
 });
 
-app.post("/deleteReq", async (req, res) => {
+app.post(`${BASE_URL}/deleteReq`, async (req, res) => {
   const { email, name } = req.body;
 
   DetailUser.find({
-    role: "Mentor",
+    role: "Mentor", 
     'mentors.email':email
   }).then((data) => {
     if (data) {  
@@ -120,7 +134,7 @@ app.post("/deleteReq", async (req, res) => {
 });
 
 
-app.post("/decline", async (req, res) => {
+app.post(`${BASE_URL}/decline`, async (req, res) => {
   const { email, name } = req.body;
   const ans = await DetailUser.findOneAndUpdate(
     { email: email },
@@ -131,7 +145,7 @@ app.post("/decline", async (req, res) => {
   res.json({ msg: "success" });
 });
 
-app.post("/loginB", async (req, res) => {
+app.post(`${BASE_URL}/loginB`, async (req, res) => {
   let token;
   try {
     const { email, password } = req.body;
@@ -161,21 +175,15 @@ app.post("/loginB", async (req, res) => {
   }
 });
 
-app.get("/getinfo", auth, (req, res) => {
-  res.send(req.rootUser);
+app.get(`${BASE_URL}/getinfo`, auth, (req, res) => {
+   res.send(req.rootUser);
 });
 
-app.get("/logout", (req, res) => {
+app.get(`${BASE_URL}/logout`, (req, res) => {
   res.clearCookie("jwtoken");
   res.status(200).send("User logout");
 });
 
-// if ( process.env.NODE_ENV = "production"){
-//   app.use(express.static("prep-hour/build"));
-//   const path = require("path");
-//   app.get("*", (req, res) => {
-//         res.sendFile(path.resolve(_dirname, 'prep-hour', 'build', 'index.html'));
-//   });
-// }
 
-module.exports=app;
+
+app.listen(PORT);
