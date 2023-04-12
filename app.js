@@ -200,4 +200,4 @@ app.get(`${BASE_URL}/logout`, (req, res) => {
 
 
 
-app.listen(PORT,console.log("listening",BASE_URL));
+app.listen(PORT,console.log("listening",`${BASE_URL}/debug`));
