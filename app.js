@@ -179,7 +179,7 @@ app.post(`${BASE_URL}/loginB`, async (req, res) => {
 
 app.get("https://prephourbackend-production.up.railway.app",(req,res)=>
 {
-res.send("hii");
+res.send("hiii");
 }
 
 
