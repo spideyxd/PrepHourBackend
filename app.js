@@ -11,6 +11,7 @@ const corsOptions = {
   origin: true,
   credentials: true,
 };
+
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
@@ -157,7 +158,7 @@ app.post(`${BASE_URL}/loginB`, async (req, res) => {
     if (userLogin) {
       const isMatch = await bcrypt.compare(password, userLogin.password);
       token = await userLogin.generateAuthToken();
-      res.cookie("jwtoken", token, {
+      res.cookie("jwtoken",token,{
         expires: new Date(Date.now() + 25892000000),
         httpOnly: true,
       });
@@ -173,6 +174,12 @@ app.post(`${BASE_URL}/loginB`, async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+
+app.get(`${BASE_URL}/debug`, async (req, res) => {
+  
+  res.send("hi");
 });
 
 app.get(`${BASE_URL}/getinfo`, auth, (req, res) => {
