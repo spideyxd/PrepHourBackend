@@ -158,10 +158,12 @@ app.post("/loginB", async (req, res) => {
     if (userLogin) {
       const isMatch = await bcrypt.compare(password, userLogin.password);
       token = await userLogin.generateAuthToken();
-      console.log(token);
+      // console.log(token);
       res.cookie("jwtoken",token,{
+        sameSite: 'none',
+    secure: true,
         expires: new Date(Date.now() + 25892000000),
-        httpOnly: true,
+        httpOnly: false,
       });
 
       if (!isMatch) {
@@ -173,7 +175,7 @@ app.post("/loginB", async (req, res) => {
       res.status(400).json({ msg: "error" });
     }
   } catch (err) {
-    console.log(err);
+    console.log(err); 
   }
 });
 
