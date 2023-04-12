@@ -184,7 +184,7 @@ res.send("hii");
 
 
 );
-app.get(`${BASE_URL}/debug`, (req, res) => {
+app.get("https://prephourbackend-production.up.railway.app//debug", (req, res) => {
   
   res.send("hi");
 });
