@@ -9,7 +9,7 @@ const Authenticate = async (req, res, next) => {
       token,
       process.env.TOKEN
     );
-    
+    res.status(400).send("sab bdia ?");
     const rootUser = await User.findOne({
       _id: verifyToken._id,
       "tokens:token": token,
