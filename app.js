@@ -184,7 +184,7 @@ res.send("hiiii");
 
 
 );
-app.get("/debug", (req, res) => {
+app.get("/debug",async (req, res) => {
   
   res.send("hidEBUG");
 });
