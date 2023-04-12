@@ -177,16 +177,16 @@ app.post(`${BASE_URL}/loginB`, async (req, res) => {
 });
 
 
-app.get("https://prephourbackend-production.up.railway.app",(req,res)=>
+app.get("/",(req,res)=>
 {
-res.send("hiii");
+res.send("hiiii");
 }
 
 
 );
-app.get("https://prephourbackend-production.up.railway.app/debug", (req, res) => {
+app.get("/debug", (req, res) => {
   
-  res.send("hi");
+  res.send("hidEBUG");
 });
 
 app.get(`${BASE_URL}/getinfo`, auth, (req, res) => {
