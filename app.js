@@ -177,7 +177,14 @@ app.post(`${BASE_URL}/loginB`, async (req, res) => {
 });
 
 
-app.get(`${BASE_URL}/debug`, async (req, res) => {
+app.get("/",(req,res)=>
+{
+res.send("hii");
+}
+
+
+);
+app.get(`${BASE_URL}/debug`, (req, res) => {
   
   res.send("hi");
 });
