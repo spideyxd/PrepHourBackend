@@ -29,7 +29,7 @@ const BASE_URL=process.env.BASE_URL;
       process.env.MONGODB  ,
         connectionParams
     );
-    console.log("Database connected succesfully",process.env.BASE_URL);
+    console.log("Database connected succesfully");
   } catch (error) {
     console.log(error);
     console.log("Database connection failed");
@@ -37,7 +37,7 @@ const BASE_URL=process.env.BASE_URL;
 
 
   
-app.post(`${BASE_URL}/register`, async (req, res) => {
+app.post("/register", async (req, res) => {
   const {
     firstName,
     password,
@@ -83,7 +83,7 @@ app.post(`${BASE_URL}/register`, async (req, res) => {
 });
 
 
-app.post(`${BASE_URL}/submitDetails`, async (req, res) => {
+app.post("/submitDetails", async (req, res) => {
   const { email, mode, domain ,purpose} = req.body;
 
   const mentor = await DetailUser.find({
@@ -112,7 +112,7 @@ app.post(`${BASE_URL}/submitDetails`, async (req, res) => {
   res.json({ msg: "success" });
 });
 
-app.post(`${BASE_URL}/deleteReq`, async (req, res) => {
+app.post("/deleteReq", async (req, res) => {
   const { email, name } = req.body;
 
   DetailUser.find({
@@ -135,7 +135,7 @@ app.post(`${BASE_URL}/deleteReq`, async (req, res) => {
 });
 
 
-app.post(`${BASE_URL}/decline`, async (req, res) => {
+app.post("/decline", async (req, res) => {
   const { email, name } = req.body;
   const ans = await DetailUser.findOneAndUpdate(
     { email: email },
@@ -146,7 +146,7 @@ app.post(`${BASE_URL}/decline`, async (req, res) => {
   res.json({ msg: "success" });
 });
 
-app.post(`${BASE_URL}/loginB`, async (req, res) => {
+app.post("/loginB", async (req, res) => {
   let token;
   try {
     const { email, password } = req.body;
@@ -189,15 +189,15 @@ app.get("/debug", (req, res) => {
   res.send("hidEBUG");
 });
 
-app.get(`${BASE_URL}/getinfo`, auth, (req, res) => {
+app.get("/getinfo", auth, (req, res) => {
    res.send(req.rootUser);
 });
 
-app.get(`${BASE_URL}/logout`, (req, res) => {
+app.get("/logout", (req, res) => {
   res.clearCookie("jwtoken");
   res.status(200).send("User logout");
 });
 
 
 
-app.listen(PORT,console.log("listening",`${BASE_URL}/debug`));
+app.listen(PORT,console.log("listening"));
