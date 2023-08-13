@@ -7,12 +7,17 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcrypt");
 const DetailUser = require("./model/Schema");
-const corsOptions = {
-  origin: true,
-  credentials: true,
-};
+// const corsOptions = {
+//   origin: true,
+//   credentials: true,
+// };
+app.use(cors({
+    origin: 'https://prep-hour-deployed.vercel.app',
+    methods: 'GET,POST,PUT,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type,Authorization'
+}));
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
