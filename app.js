@@ -15,6 +15,7 @@ app.use(cors({
     origin: 'https://prep-hour-deployed.vercel.app',
     methods: 'GET,POST,PUT,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type,Authorization'
+     credentials: true,
 }));
 
 // app.use(cors(corsOptions));
