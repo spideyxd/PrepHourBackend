@@ -7,7 +7,7 @@ const Authenticate = async (req, res, next) => {
 
     const verifyToken = jwt.verify(
       token,
-      process.env.TOKEN
+       process.env.REACT_APP_TOKEN
     );
    
     const rootUser = await User.findOne({
